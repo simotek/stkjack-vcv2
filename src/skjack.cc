@@ -2,11 +2,11 @@
 #include "jack-audio-module.hh"
 
 rack::plugin::Plugin *plugin;
-jaq::client g_jack_client;
 std::condition_variable g_jack_cv;
 std::mutex g_audio_modules_mutex;
 std::vector<jack_audio_module_base*> g_audio_modules;
 std::atomic<unsigned int> g_audio_blocked(0);
+jaq::client g_jack_client;
 
 const char* g_hashid_salt = "grilled cheese sandwiches";
 
