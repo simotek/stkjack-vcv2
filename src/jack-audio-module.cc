@@ -105,12 +105,13 @@ void jack_audio_module_base::assign_stupid_port_names() {
 	 jport[i].register_audio
 	    (g_jack_client,
 	     reinterpret_cast<const char*>(&port_name), flags);
+        this->port_names[i] = std::string(port_name);
       }
    }
 }
 
-json_t* jack_audio_module_base::toJson() {
-   auto map = Module::toJson();
+json_t* jack_audio_module_base::dataToJson() {
+   auto map = json_object();
    auto pt_names = json_array();
 
    for (int i = 0; i < JACK_PORTS; i++) {
@@ -122,8 +123,7 @@ json_t* jack_audio_module_base::toJson() {
    return map;
 }
 
-void jack_audio_module_base::fromJson(json_t* json) {
-   auto module = reinterpret_cast<JackAudioModule*>(this);
+void jack_audio_module_base::dataFromJson(json_t* json) {   auto module = reinterpret_cast<JackAudioModule*>(this);
    auto pt_names = json_object_get(json, "port_names");
    if (json_is_array(pt_names)) {
       for (size_t i = 0; i < std::min(json_array_size(pt_names), (size_t)8); i++) {

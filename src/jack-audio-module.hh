@@ -44,8 +44,8 @@ struct jack_audio_module_base: public Module {
 
    void report_backlogged();
 
-   virtual json_t* toJson() override;
-   virtual void fromJson(json_t* json) override;
+   virtual json_t* dataToJson() override;
+   virtual void dataFromJson(json_t* json) override; 
 
    jack_audio_module_base(size_t params, size_t inputs,
 			  size_t outputs, size_t lights);
